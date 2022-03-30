@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Location {
     public String name;
@@ -7,7 +8,7 @@ public class Location {
     public ArrayList<Interactable> interactables;
 
     public Location(String name, String startingText, ArrayList<Location> NESW) {
-        this(name, startingText, NESW, null);
+        this(name, startingText, NESW, new ArrayList<>());
     }
 
     public Location(String name, String startingText, ArrayList<Location> NESW, ArrayList<Interactable> interactables) {
@@ -28,5 +29,9 @@ public class Location {
 
     public void setNESW(ArrayList<Location> NESW){
         this.NESW = NESW;
+    }
+
+    public void remove(Interactable i, Location loc){
+        loc.interactables.remove(i);
     }
 }

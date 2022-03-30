@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Locations {
-    public static Location empty_location = new Location("empty", "", null, null);
+    public static Location empty_location = new Location("empty", "", null);
     public static Location cubicle = new Location(Text.CUBICLE_NAME, Text.CUBICLE_STARTING, null, new ArrayList<>(List.of(Interactables.photo)));
     public static Location break_room = new Location(Text.BREAK_ROOM_NAME, Text.BREAK_ROOM_STARTING, null, new ArrayList<>(List.of(Interactables.postcard)));
     public static ArrayList<Location> locations = new ArrayList<>(List.of(cubicle));

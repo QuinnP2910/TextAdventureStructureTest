@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     private static Location curLoc = Locations.cubicle;
+    private static final ArrayList<Interactable> inv = new ArrayList<>();
     private static boolean running = true;
 
     public static void main(String[] args) {
@@ -23,7 +25,7 @@ public class Main {
     }
 
     public static boolean inputManager(String input){
-        String[] inputSplit = input.split(" ");
+        String[] inputSplit = input.split(" ", 2);
         switch (inputSplit[0]){
             case "north":
             case "n":
@@ -65,7 +67,7 @@ public class Main {
             case "investigate":
             case "inspect":
                 if(inputSplit.length == 1){
-                    System.out.println(Text.INTERACTABLE_ERROR);
+                    System.out.println(Text.INTERACTABLE_ERROR_EMPTY);
                     return false;
                 }
                 for(Interactable i : curLoc.interactables){
@@ -76,8 +78,43 @@ public class Main {
                         }
                     }
                 }
-                System.out.println(Text.INTERACTABLE_ERROR);
+                System.out.println(Text.INTERACTABLE_ERROR.concat(inputSplit[1]));
                 return false;
+            case "take":
+            case "grab":
+            case "pickup":
+                if(inputSplit.length == 1){
+                    System.out.println(Text.TAKE_ERROR_EMPTY);
+                    return false;
+                }
+                for(Interactable i : curLoc.interactables){
+                    for(String s : i.references) {
+                        if (inputSplit[1].equals(s)) {
+                            System.out.println(Text.TAKE_SUCCESS.concat(i.name));
+                            inv.add(i);
+                            curLoc.remove(i, curLoc);
+                            return false;
+                        }
+                    }
+                }
+                System.out.println(Text.INTERACTABLE_ERROR.concat(inputSplit[1]));
+                return false;
+            case "inventory":
+            case "inv":
+                if(inv.isEmpty()){
+                    System.out.println(Text.INVENTORY_ERROR_EMPTY);
+                }
+                for(Interactable i : inv){
+                    if(inv.indexOf(i) != inv.size() - 1) {
+                        System.out.print(i.name.concat(", "));
+                    } else {
+                        System.out.println(i.name);
+                    }
+                }
+                return false;
+            case "location":
+            case "loc":
+                return true;
             default:
                 System.out.println(Text.ERROR);
                 return false;
@@ -97,10 +134,15 @@ public class Main {
             }
         }
         prompt = prompt.concat(".");
-        if(loc.interactables != null) {
+        if(!loc.interactables.isEmpty()) {
             prompt = prompt.concat(" Around you there is");
             for (Interactable i : loc.interactables) {
-                prompt = prompt.concat(" " + i.name);
+                prompt = switch (i.toPrint.size()) {
+                    case 0 -> prompt.concat(" " + i.name);
+                    case 1 -> prompt.concat(" " + i.toPrint.get(0) + i.name);
+                    case 2 -> prompt.concat(" " + i.toPrint.get(0) + i.name + i.toPrint.get(1));
+                    default -> prompt;
+                };
             }
             prompt = prompt.concat(".");
         }
