@@ -3,17 +3,17 @@ import java.util.ArrayList;
 public class Location {
     public String name;
     public String startingText;
-    public ArrayList<String> nesw;
+    public ArrayList<Location> NESW;
     public ArrayList<Interactable> interactables;
 
-    public Location(String name, String startingText, ArrayList<String> nesw) {
-        this(name, startingText, nesw, null);
+    public Location(String name, String startingText, ArrayList<Location> NESW) {
+        this(name, startingText, NESW, null);
     }
 
-    public Location(String name, String startingText, ArrayList<String> nesw, ArrayList<Interactable> interactables) {
+    public Location(String name, String startingText, ArrayList<Location> NESW, ArrayList<Interactable> interactables) {
         this.name = name;
         this.startingText = startingText;
-        this.nesw = nesw;
+        this.NESW = NESW;
         this.interactables = interactables;
     }
 
@@ -24,5 +24,9 @@ public class Location {
             }
         }
         return null;
+    }
+
+    public void setNESW(ArrayList<Location> NESW){
+        this.NESW = NESW;
     }
 }

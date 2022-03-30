@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public class Main {
-    private static Location curLoc = Locations.start;
+    private static Location curLoc = Locations.cubicle;
     private static boolean running = true;
 
     public static void main(String[] args) {
+        Locations.setDirectionalLocations();
         Scanner input = new Scanner(System.in);
         while(running) {
             printLocation(curLoc);
@@ -26,38 +27,38 @@ public class Main {
         switch (inputSplit[0]){
             case "north":
             case "n":
-                if(curLoc.nesw.get(0).equals("nullN")){
+                if(curLoc.NESW.get(0).name.equals("empty")){
                     System.out.println(Text.DIRECTION_ERROR + "north");
                     return false;
                 } else {
-                    curLoc = Location.toLocation(curLoc.nesw.get(0));
+                    curLoc = curLoc.NESW.get(0);
                     return true;
                 }
             case "east":
             case "e":
-                if(curLoc.nesw.get(1).equals("nullE")){
+                if(curLoc.NESW.get(1).name.equals("empty")){
                     System.out.println(Text.DIRECTION_ERROR + "east");
                     return false;
                 } else {
-                    curLoc = Location.toLocation(curLoc.nesw.get(1));
+                    curLoc = curLoc.NESW.get(1);
                     return true;
                 }
             case "south":
             case "s":
-                if(curLoc.nesw.get(2).equals("nullS")){
+                if(curLoc.NESW.get(2).name.equals("empty")){
                     System.out.println(Text.DIRECTION_ERROR + "south");
                     return false;
                 } else {
-                    curLoc = Location.toLocation(curLoc.nesw.get(2));
+                    curLoc = curLoc.NESW.get(2);
                     return true;
                 }
             case "west":
             case "w":
-                if(curLoc.nesw.get(3).equals("nullW")){
+                if(curLoc.NESW.get(3).name.equals("empty")){
                     System.out.println(Text.DIRECTION_ERROR + "west");
                     return false;
                 } else {
-                    curLoc = Location.toLocation(curLoc.nesw.get(3));
+                    curLoc = curLoc.NESW.get(3);
                     return true;
                 }
             case "analyze":
@@ -85,14 +86,14 @@ public class Main {
 
     public static String promptManager(Location loc){
         String prompt = "";
-        for(String l : loc.nesw){
-            if(!l.startsWith("null")){
+        for(Location l : loc.NESW){
+            if(!l.name.equals("empty")){
                 if(prompt.equals("")){
                     prompt = prompt.concat("T");
                 } else {
                     prompt = prompt.concat(", t");
                 }
-                prompt = prompt.concat("o your " + getNESW(loc.nesw.indexOf(l)) + " is " + l);
+                prompt = prompt.concat("o your " + getNESW(loc.NESW.indexOf(l)) + " is " + l.name);
             }
         }
         prompt = prompt.concat(".");
