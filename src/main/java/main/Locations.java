@@ -1,3 +1,8 @@
+package main;
+
+import main.Interactables;
+import main.Location;
+
 import java.util.ArrayList;
 import java.util.List;
 

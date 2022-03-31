@@ -1,15 +1,17 @@
+package main;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Text {
-    //Locations
+    //main.Locations
     //Cubicle
-    public static final String CUBICLE_NAME = "your Cubicle";
+    public static final String CUBICLE_NAME = "your cubicle";
     public static final String CUBICLE_STARTING = "You sit at your desk, letting the light from the computer screen in front of you penetrate your tired eyes. You need a break.";
     //Break Room
     public static final String BREAK_ROOM_NAME = "the break room";
-    public static final String BREAK_ROOM_STARTING = "Fluorescent lights give this room a sterile glow. It doesn't feel like much of a rest. You want to leave.";
-    //Interactables
+    public static final String BREAK_ROOM_STARTING = "Fluorescent lights give this room a sterile glow. It doesn't feel like much of a break. You want to leave.";
+    //main.Interactables
     //Photo
     public static final String PHOTOGRAPH_NAME = "photograph";
     public static final ArrayList<String> PHOTOGRAPH_PRINT = new ArrayList<>(List.of("a "));
